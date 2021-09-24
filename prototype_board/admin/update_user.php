@@ -37,11 +37,13 @@ $r = mysqli_fetch_assoc($q);
 			</div>
 			<div class="input-group">
 				<label>User type</label>
-				<select name="user_type" id="user_type" value="<?php echo $r['user_type']; ?>">
-					<option value=""></option>
-					<option value="admin">Admin</option>
-					<option value="user">User</option>
-				</select>
+
+			 	<select name="user_type" id="user_type">
+					
+					<option value="admin"  <?php if ($r['user_type']=='admin'){?>selected<?php } ?>>Admin</option>
+					
+					<option value="user"  <?php if ($r['user_type']=='user'){?>selected<?php } ?>>User</option>
+				</select> 
 			</div>
 			<div class="input-group">
 				<label>Password</label>
