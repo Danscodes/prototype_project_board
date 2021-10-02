@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2021 at 10:11 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- Generation Time: Oct 02, 2021 at 11:13 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `files` (
   `f_id` int(11) NOT NULL,
+  `user_id` int(255) NOT NULL,
   `filename` varchar(100) NOT NULL,
   `file_type` varchar(20) NOT NULL,
   `date_uploaded` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `feedback` text NOT NULL
+  `feedback` text NOT NULL,
+  `file_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES
+(1, 1, 'test', '.jpeg', '9-11-2021', 'test', 'asd'),
+(2, 2, 'test', 'test', 'test', 'test', 'test');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `share`
+--
+
+CREATE TABLE `share` (
+  `share_id` int(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -56,7 +77,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `name`, `email`, `user_type`, `password`) VALUES
-(2, '790', '23', '1231@123123', 'user', '2dace78f80bc92e6d7493423d729448e'),
+(2, '790', '23', '1231@123123', 'user', 'dff54615aaf85d9b65f74f912b29e429'),
 (3, 'admin', 'admin', 'admin@asdasdw', 'admin', '827ccb0eea8a706c4c34a16891f84e7b'),
 (11, '123', 'yaps', 'yaps@yaps', 'user', '202cb962ac59075b964b07152d234b70');
 
@@ -84,7 +105,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
