@@ -16,6 +16,13 @@ if (isset($_POST['register_btn'])) {
 	register();
 }
 
+if (isset($_POST['uploadfile_btn'])) {
+	uploadfile();
+}
+// call the uploadfile() function if uploadfile_btn is clicked
+
+
+
 // REGISTER USER
 function register(){
 	// call these variables with the global keyword to make them available in function
@@ -73,6 +80,51 @@ function register(){
 			$_SESSION['success']  = "You are now logged in";
 			header('location: index.php');				
 		}
+	}
+}
+
+// UPLOAD FILE 
+function uploadfile() {
+	// call these variables with the global keyword to make them available in function
+	global $db, $errors, $filename, $path, $user_id;
+
+	// receive all input values from the form. Call the e() function
+    // defined below to escape form values
+	$filename    =  e($_POST['filename']);
+	$file_type    =  e($_POST['file_type']);
+	$date_upload       =  e($_POST['date_upload']);
+	$user_id = e($_SESSION['user_id']);
+	$feedback  =  e($_POST['feedback']);
+	$file_path  =  e($_POST['file_path']);
+
+	// form validation: ensure that the form is correctly filled
+	if (empty($filename)) { 
+		array_push($errors, "Filename is required"); 
+	}
+	if (empty($file_type )) { 
+		array_push($errors, "File type is required"); 
+	}
+	if (empty($date_upload)) { 
+		array_push($errors, "Date Upload is required"); 
+	}
+	if (empty($user_id)) { 
+		array_push($errors, "User ID type is required"); 
+	}
+	if (empty($feedback)) { 
+		array_push($errors, "Feedback is required"); 
+	}
+	if (empty($file_path)) { 
+		array_push($errors, "File path is required");
+	}
+
+	// register user if there are no errors in the form
+	if (count($errors) == 0) {
+		$password = md5($password_1);//encrypt the password before saving in the database
+		$user_type = e($_POST['user_type']);
+		$query = "INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES (NULL, '$filename', '$file_type', '$date_upload', '$user_id', '$feedback', '$file_path');";
+		mysqli_query($db, $query);
+		$_SESSION['success']  = "New user successfully created!!";
+		header('location: ../admin/index.php?page=users');
 	}
 }
 
@@ -154,10 +206,12 @@ function login(){
 			if ($logged_in_user['user_type'] == 'admin') {
 
 				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['user_id'] = $logged_in_user['user_id'];
 				$_SESSION['success']  = "You are now logged in";
 				header('location: admin/index.php');		  
 			}else{
 				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['user_id'] = $logged_in_user['user_id'];
 				$_SESSION['success']  = "You are now logged in as...";
 
 				header('location: index.php');

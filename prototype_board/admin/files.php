@@ -23,6 +23,10 @@
 			    	</div>
 				    <div class="modal-body">
 				     	<form action="upload_file.php" id="manage_files">
+							<div class="input-group">
+									<label>Filename:</label>
+									<input type="text" name="filename" value="<?php echo $filename; ?>">
+							</div>
 				     		<br>
 				     		<input type="file" name="file" size="4" required="required" />
 				     		<br>
@@ -77,9 +81,10 @@
 	<div id="tbody">
 		<table width="100%">
 			<tr>
-				<th width="40%" class="">Filename</th>
+				<th width="30%" class="">Filename</th>
 				<th width="20%" class="">Date</th>
-				<th width="40%" class="">Feedback</th>
+				<th width="30%" class="">Feedback</th>
+				<th width="20%" class="">Action</th>
 			</tr>
 		</table>
 	</div>
