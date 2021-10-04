@@ -22,25 +22,11 @@
 				      <h2>Select File to Upload:</h2>
 			    	</div>
 				    <div class="modal-body">
-				     	<form action="upload_file.php" id="manage_files">
-							<div class="input-group">
-									<label>Filename:</label>
-									<input type="text" name="filename" value="<?php echo $filename; ?>">
-							</div>
-				     		<br>
-				     		<input type="file" name="file" size="4" required="required" />
-				     		<br>
-				     		<br>
-				     		<label for="" class="control-label">Feedback:</label>
-				     		<br>
-				     		<textarea name="feedback" id="" cols="30" rows="10"></textarea>
-				     		<br>
-				     		<br>
-				     		<label for="is_public"><input type="checkbox" name="is_public" id="is_public"><i> Share to All Users</i></label>
-				     		<br>
-				     		<br>
-				     		<input type="submit" name="uploadBtn" value="Upload" />
-				     	</form>
+					<form action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
 					     	<br>
 					     	<br>
 				    </div>
@@ -127,4 +113,30 @@ window.onclick = function(event) {
 }
 </script>
 </body>
+<style>
+	.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+</style>
 </html>

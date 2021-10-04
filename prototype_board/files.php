@@ -22,21 +22,12 @@
 				      <h2>Select File to Upload:</h2>
 			    	</div>
 				    <div class="modal-body">
-				     	<form action="upload_file.php" id="manage_files">
-				     		<br>
-				     		<input type="file" name="file" size="4" required="required" />
-				     		<br>
-				     		<br>
-				     		<label for="" class="control-label">Feedback:</label>
-				     		<br>
-				     		<textarea name="feedback" id="" cols="30" rows="10"></textarea>
-				     		<br>
-				     		<br>
-				     		<label for="is_public"><input type="checkbox" name="is_public" id="is_public"><i> Share to All Users</i></label>
-				     		<br>
-				     		<br>
-				     		<input type="submit" name="uploadBtn" value="Upload" />
-				     	</form>
+					<form action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
+
 					     	<br>
 					     	<br>
 				    </div>

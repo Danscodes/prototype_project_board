@@ -1,4 +1,7 @@
 <?php 
+//global file path
+$GLOBALS['file_path'] = 'C:\xampp\htdocs\prototype_project_board\prototype_board';
+
 session_start();
 
 // connect to database
@@ -230,3 +233,8 @@ function isAdmin()
 		return false;
 	}
 }
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
