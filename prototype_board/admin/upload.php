@@ -1,4 +1,9 @@
 <?php
+
+include ('../db_connect.php');
+session_start();
+$user_id = $_SESSION['user_id'];
+
 $target_dir = "../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -23,10 +28,18 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "<script type='text/javascript'>alert('Success');</script>";
-    header('location: ../admin/index.php?page=files');
+   
+    $sql="INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES (NULL, '$user_id', 'test', 'testtes', '', 'test', 'test');";
+    $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+    if($sql){
+      header('location: ../admin/index.php?page=files');
+    }else{
+      echo "Sorry, there was an error uploading your file.";
+    }
   } else {
     echo "Sorry, there was an error uploading your file.";
   }
 }
+
+// INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES (NULL, '', 'test', 'testtes', '', 'test', 'test');
 ?>

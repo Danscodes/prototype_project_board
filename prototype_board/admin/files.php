@@ -1,16 +1,24 @@
 <!DOCTYPE html>
+<?php
+$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
+$db = mysqli_select_db($conn,"db_fms");
+$sql = "SELECT * FROM users";
+$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+
+ include_once('../functions.php')
+?>
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel = "stylesheet" type="text/css" href="../css/upload.css" />
+	<title></title>
+	<link rel = "stylesheet" type="text/css" href="../css/create_user.css" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-	<div class="button-align">
-
+<div class="button-align">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal1"><i class='bx bx-upload'></i>Upload File</button>
+			<button class="modal-button" href="#myModal1"> + New User</button>
 
 				<!-- The Modal -->
 				<div id="myModal1" class="modal">
@@ -19,47 +27,54 @@
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>Select File to Upload:</h2>
+				      <h2>New User</h2>
 			    	</div>
+
 				    <div class="modal-body">
-					<form action="upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input">
-  <input type="submit" value="Upload Image" name="submit">
-</form>
-					     	<br>
-					     	<br>
+				    	<div class="form-body">
+				    		<form method="post" action="index.php?page=users.php">
+
+								<?php echo display_error(); ?>
+
+								<div class="input-group">
+									<label>Username</label>
+									<input type="text" name="username" value="<?php echo $username; ?>">
+								</div>
+								<div class="input-group">
+									<label>Name</label>
+									<input type="text" name="name" value="<?php echo $name; ?>">
+								</div>
+								<div class="input-group">
+									<label>Email</label>
+									<input type="email" name="email" value="<?php echo $email; ?>">
+								</div>
+								<div class="input-group">
+									<label>User type</label>
+									<select name="user_type" id="user_type" >
+										<option value=""></option>
+										<option value="admin">Admin</option>
+										<option value="user">User</option>
+									</select>
+								</div>
+								<div class="input-group">
+									<label>Password</label>
+									<input type="password" name="password_1">
+								</div>
+								<div class="input-group">
+									<label>Confirm password</label>
+									<input type="password" name="password_2">
+								</div>
+								<br>
+								<div class="input-group">
+									<button type="submit" class="btn" name="register_btn"> + Add user</button>
+								</div>
+							</form>
+				    	</div>
 				    </div>
 				  </div>
 				</div>
 		</div>
-
-		<div class="second-modal">
-			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal2">Open Modal</button>
-
-			<!-- The Modal -->
-			<div id="myModal2" class="modal">
-
-			  <!-- Modal content -->
-			  <div class="modal-content">
-			    <div class="modal-header">
-			      <span class="close">×</span>
-			      <h2>Modal Header</h2>
-			    </div>
-			    <div class="modal-body">
-			      <p>Some text in the Modal Body</p>
-			      <p>Some other text...</p>
-			    </div>
-			    <div class="modal-footer">
-			      <h3>Modal Footer</h3>
-			    </div>
-			  </div>
-			</div>	
-		</div>
-
-	</div>
-
+</div>
 	<br>
 	<hr>
 	<br>
@@ -67,11 +82,35 @@
 	<div id="tbody">
 		<table width="100%">
 			<tr>
-				<th width="30%" class="">Filename</th>
-				<th width="20%" class="">Date</th>
-				<th width="30%" class="">Feedback</th>
-				<th width="20%" class="">Action</th>
+				<th width="20%">Name</th>
+			    <th width="30%">Username</th>
+			    <th width="20%">Email</th>
+			 
+			    <th width="30%"></th>
 			</tr>
+			<?php
+						while($r = mysqli_fetch_assoc($q))
+						{
+					?> 
+			 	<tr>
+			 		<td><?php echo $r['name'];?></td>
+					<td><?php echo $r['username'];?></td>
+					<td><?php echo $r['email'];?></td>
+				
+					<?php $user_id = $r['user_id']?>
+					<td> 
+						<div class="dropdown">
+						  <button class="dropbtn">Action</button>
+						  <div class="dropdown-content">
+						    <a href = "index.php?page=update&user_id=<?php echo $user_id;?>"> Update </a>
+							<a href = "index.php?page=delete&user_id=<?php echo $user_id;?>&name=<?php echo $r['name'];?>"> Delete </a>
+						  </div>
+						</div>
+					</td>
+			 	</tr>
+			 		<?php 
+						}
+					?>
 		</table>
 	</div>
 
@@ -113,30 +152,4 @@ window.onclick = function(event) {
 }
 </script>
 </body>
-<style>
-	.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
-.custom-file-input::before {
-  content: 'Select some files';
-  display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-}
-.custom-file-input:hover::before {
-  border-color: black;
-}
-.custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-}
-</style>
 </html>
