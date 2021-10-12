@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2021 at 04:45 PM
+-- Generation Time: Oct 12, 2021 at 06:38 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -29,11 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `files` (
   `f_id` int(11) NOT NULL,
+  `folder_id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `filename` varchar(100) NOT NULL,
   `file_type` varchar(20) NOT NULL,
   `date_uploaded` varchar(100) NOT NULL,
-  `feedback` text NOT NULL,
+  `remarks` varchar(255) NOT NULL,
   `file_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,33 +42,27 @@ CREATE TABLE `files` (
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES
-(1, 0, 'test', 'testtes', '', 'test', 'test'),
-(2, 0, 'test', 'testtes', '', 'test', 'test'),
-(3, 0, 'test', 'testtes', '', 'test', 'test'),
-(4, 3, 'test', 'testtes', '', 'test', 'test');
+INSERT INTO `files` (`f_id`, `folder_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `remarks`, `file_path`) VALUES
+(23, 0, 3, 'document.pdf', 'pdf', '2021-10-12 12:36:39', 'test remarks', '../uploads/document.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `folder`
 --
 
-CREATE TABLE `product` (
-  `product_id` int(255) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL
+CREATE TABLE `folder` (
+  `folder_id` int(255) NOT NULL,
+  `folder_path` varchar(255) NOT NULL,
+  `folder_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `product`
+-- Dumping data for table `folder`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `price`, `role`) VALUES
-(1, 'test5', '55', ''),
-(2, 'item2', '55', ''),
-(3, 'item3', '11', '');
+INSERT INTO `folder` (`folder_id`, `folder_path`, `folder_name`) VALUES
+(1, '../uploads', 'Home');
 
 -- --------------------------------------------------------
 
@@ -119,10 +114,10 @@ ALTER TABLE `files`
   ADD PRIMARY KEY (`f_id`);
 
 --
--- Indexes for table `product`
+-- Indexes for table `folder`
 --
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`);
+ALTER TABLE `folder`
+  ADD PRIMARY KEY (`folder_id`);
 
 --
 -- Indexes for table `users`
@@ -138,13 +133,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `folder`
 --
-ALTER TABLE `product`
-  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `folder`
+  MODIFY `folder_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

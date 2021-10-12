@@ -131,8 +131,6 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				<th width="50%">File Name</th>
 				<th width="10%">Remarks</th>
 				<th width="10%">Date uploaded</th>
-				
-			
 				<th width="10%"></th>
 			</tr>
 			<?php
