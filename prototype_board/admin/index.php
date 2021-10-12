@@ -6,6 +6,7 @@ include('../functions.php');
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel = "stylesheet" type="text/css" href="../css/responsive.css" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<title>Project Board</title>

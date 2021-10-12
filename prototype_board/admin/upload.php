@@ -3,11 +3,13 @@
 include ('../db_connect.php');
 session_start();
 $user_id = $_SESSION['user_id'];
-
+$remarks = $_POST['remarks'];
 $target_dir = "../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$filename = $_FILES["fileToUpload"]["name"];
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
 
 
 // Check if file already exists
@@ -28,8 +30,9 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-   
-    $sql="INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES (NULL, '$user_id', 'test', 'testtes', '', 'test', 'test');";
+    date_default_timezone_set('Asia/Manila');
+    $todays_date = date("Y-m-d H:i:s");
+    $sql="INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `remarks`, `file_path`) VALUES (NULL, '$user_id', '$filename', '$imageFileType', '$todays_date', '$remarks', '$target_file');";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
     if($sql){
       header('location: ../admin/index.php?page=files');
@@ -41,5 +44,5 @@ if ($uploadOk == 0) {
   }
 }
 
-// INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `feedback`, `file_path`) VALUES (NULL, '', 'test', 'testtes', '', 'test', 'test');
+// INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `remarks`, `file_path`) VALUES (NULL, '', 'test', 'testtes', '', 'test', 'test');
 ?>

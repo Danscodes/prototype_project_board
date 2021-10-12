@@ -2,7 +2,7 @@
 <?php
 $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_fms");
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM files";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
  include_once('../functions.php')
@@ -15,58 +15,69 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<div class="button-align">
+		<!-- The Modal -->
+		<div id="UpdateFile" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-body">
+	  <div class="form-body">
+	  <form action="upload.php" method="post" enctype="multipart/form-data">
+  
+			  <?php echo display_error(); ?>
+
+			  <div class="input-group">
+				  <label>File_id</label>
+				  <input type="text" id="file_id" name="username" value="">
+
+				  <label>File Name</label>
+				  <input type="text" id="file_name" name="file_name" value="">
+
+			  </div>
+			  
+		  
+			  <br>
+			  <div class="input-group">
+				  <button type="submit" class="btn" name="register_btn" value="Upload Image"> Update File</button>
+			  
+			  </div>
+		  </form>
+	  </div>
+  </div>
+</div>
+</div>
+	<div class="row">
+<div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal1"> + New User</button>
+			<button class="modal-button" href="#ModalFile"> + Upload</button>
 
 				<!-- The Modal -->
-				<div id="myModal1" class="modal">
+				<div id="ModalFile" class="modal">
 
 				  <!-- Modal content -->
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>New User</h2>
+				      <h2>Add File</h2>
 			    	</div>
 
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    		<form method="post" action="index.php?page=users.php">
-
+				    	<form action="upload.php" method="post" enctype="multipart/form-data">
+						<input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input" style="align:center">
 								<?php echo display_error(); ?>
 
 								<div class="input-group">
-									<label>Username</label>
-									<input type="text" name="username" value="<?php echo $username; ?>">
+									<label>Remarks</label>
+									<input type="text" name="remarks">
 								</div>
-								<div class="input-group">
-									<label>Name</label>
-									<input type="text" name="name" value="<?php echo $name; ?>">
-								</div>
-								<div class="input-group">
-									<label>Email</label>
-									<input type="email" name="email" value="<?php echo $email; ?>">
-								</div>
-								<div class="input-group">
-									<label>User type</label>
-									<select name="user_type" id="user_type" >
-										<option value=""></option>
-										<option value="admin">Admin</option>
-										<option value="user">User</option>
-									</select>
-								</div>
-								<div class="input-group">
-									<label>Password</label>
-									<input type="password" name="password_1">
-								</div>
-								<div class="input-group">
-									<label>Confirm password</label>
-									<input type="password" name="password_2">
-								</div>
+								
+						
 								<br>
 								<div class="input-group">
-									<button type="submit" class="btn" name="register_btn"> + Add user</button>
+									<button type="submit" class="btn" name="register_btn" value="Upload Image"> + Upload File</button>
+								
 								</div>
 							</form>
 				    	</div>
@@ -75,6 +86,41 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				</div>
 		</div>
 </div>
+<div class="col-2">
+		<div class="first-modal">
+			<!-- Trigger/Open The Modal -->
+			<button class="modal-button" href="#ModalFolder"> + Add Folder</button>
+
+				<!-- The Modal -->
+				<div id="ModalFolder" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				    <div class="modal-body">
+				    	<div class="form-body">
+				    	<form action="upload.php" method="post" enctype="multipart/form-data">
+					
+								<?php echo display_error(); ?>
+
+								<div class="input-group">
+									<label>Folder Name</label>
+									<input type="text" name="username" value="<?php echo $username; ?>">
+								</div>
+								
+							
+								<br>
+								<div class="input-group">
+									<button type="submit" class="btn" name="register_btn" value="Upload Image"> + Add Folder</button>
+								
+								</div>
+							</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
+		</div>
+</div>
+</div>
 	<br>
 	<hr>
 	<br>
@@ -82,30 +128,50 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	<div id="tbody">
 		<table width="100%">
 			<tr>
-				<th width="20%">Name</th>
-			    <th width="30%">Username</th>
-			    <th width="20%">Email</th>
-			 
-			    <th width="30%"></th>
+				<th width="50%">File Name</th>
+				<th width="10%">Remarks</th>
+				<th width="10%">Date uploaded</th>
+				
+			
+				<th width="10%"></th>
 			</tr>
 			<?php
+		
 						while($r = mysqli_fetch_assoc($q))
 						{
 					?> 
 			 	<tr>
-			 		<td><?php echo $r['name'];?></td>
-					<td><?php echo $r['username'];?></td>
-					<td><?php echo $r['email'];?></td>
-				
-					<?php $user_id = $r['user_id']?>
-					<td> 
-						<div class="dropdown">
+			 		<td><?php echo $r['filename'];?></td>
+					 <td><?php echo $r['remarks'];?></td>
+					 <td><?php echo $r['date_uploaded'];?></td>
+					<?php $file_id = $r['f_id'];
+					$fname =  $r['filename'];
+					$fpath =  $r['file_path'];
+					
+					?>
+		
+		</td>
+		<td>
+		
+
+		<div class="dropdown">
 						  <button class="dropbtn">Action</button>
 						  <div class="dropdown-content">
-						    <a href = "index.php?page=update&user_id=<?php echo $user_id;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $user_id;?>&name=<?php echo $r['name'];?>"> Delete </a>
-						  </div>
+						  <a href="../uploads/<?php echo $fname;?>" rel="nofollow">View</a>
+						 	<a href="../uploads/<?php echo $fname;?>" download>Download</a>
+							 <a onclick="selected_id('<?php echo $file_id;?>','<?php echo $fname;?>')"> Rename</a>
+		
+							<a onclick="delete_file('<?php echo $file_id;?>','<?php echo $fname;?>','<?php echo $fpath;?>')"> Delete</a>
+		 
 						</div>
+						</div>
+
+
+	
+	
+	
+	</td>
+</div>
 					</td>
 			 	</tr>
 			 		<?php 
@@ -114,6 +180,9 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 		</table>
 	</div>
 
+	
+
+	
 <script>
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
@@ -129,7 +198,7 @@ for (var i = 0; i < btn.length; i++) {
  btn[i].onclick = function(e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
-    modal.style.display = "block";
+	modal.style.display = "block";
  }
 }
 
@@ -150,6 +219,61 @@ window.onclick = function(event) {
      }
     }
 }
+
+function delete_file(val,val2,fpath){
+	if (confirm('Are you sure you want to delete '+val2+'?')) {
+  // Save it!
+  url = "./ajax/delete_file.php";
+    
+      $.post(url,{file_id: val,fname:val2}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=files";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
+function selected_id (val,val2){
+	var modals = document.querySelectorAll('.modal');
+	modal = document.querySelector('#UpdateFile');
+	modal.style.display = "block";
+	document.getElementById("file_name").value = val2;
+	document.getElementById("file_id").value = val;
+}
+
+function downloadfile(){
+	$.fileDownload('../uploads/document.pdf')
+    .done(function () { alert('File download a success!'); })
+    .fail(function () { alert('File download failed!'); });
+}
+
+
+// 	// Get the modal
+// 	var modal = document.getElementById("myModal");
+
+
+
+// function myFunction() {
+// modal.style.display = "block";
+
+
+//   alert("tetst");
+
+// }
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+
 </script>
 </body>
 </html>
