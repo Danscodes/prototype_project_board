@@ -1,6 +1,6 @@
 <?php
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = $_REQUEST['username'];
+$password = $_REQUEST['password'];
 // connect to database
 $db = mysqli_connect('localhost', 'root', '', 'db_fms');
 
