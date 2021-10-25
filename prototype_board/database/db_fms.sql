@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2021 at 06:38 AM
+-- Generation Time: Oct 25, 2021 at 11:53 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -43,7 +43,11 @@ CREATE TABLE `files` (
 --
 
 INSERT INTO `files` (`f_id`, `folder_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `remarks`, `file_path`) VALUES
-(23, 0, 3, 'document.pdf', 'pdf', '2021-10-12 12:36:39', 'test remarks', '../uploads/document.pdf');
+(40, 0, 3, 'hahaha.png', 'png', '2021-10-24 18:15:13', 'test', '../uploads/hahaha.png'),
+(43, 0, 3, 'Screenshot (1).png', 'png', '2021-10-24 18:40:16', '', '../uploads/Screenshot (1).png'),
+(44, 0, 3, 'Screenshot (2).png', 'png', '2021-10-24 18:40:23', '', '../uploads/Screenshot (2).png'),
+(45, 0, 3, 'ramon.jpg', 'jpg', '2021-10-25 14:50:06', '', '../uploads/ramon.jpg'),
+(47, 0, 18, 'cpuz2.jpg', 'jpg', '2021-10-25 17:20:33', '', '../uploads/cpuz2.jpg');
 
 -- --------------------------------------------------------
 
@@ -76,6 +80,25 @@ CREATE TABLE `share` (
   `file_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `share`
+--
+
+INSERT INTO `share` (`share_id`, `user_id`, `file_id`) VALUES
+(7, 0, 0),
+(8, 0, 0),
+(9, 11, 0),
+(10, 11, 0),
+(12, 18, 0),
+(13, 13, 0),
+(15, 3, 0),
+(17, 18, 45),
+(18, 19, 45),
+(19, 18, 43),
+(20, 18, 40),
+(21, 3, 47),
+(22, 19, 47);
+
 -- --------------------------------------------------------
 
 --
@@ -100,8 +123,8 @@ INSERT INTO `users` (`user_id`, `username`, `name`, `email`, `user_type`, `passw
 (3, 'admin', 'admin', 'admin@asdasdw', 'admin', '827ccb0eea8a706c4c34a16891f84e7b'),
 (11, '123', 'yaps', 'yaps@yaps', 'user', '202cb962ac59075b964b07152d234b70'),
 (13, '123', 'test', 'test@gmail.com', 'admin', '202cb962ac59075b964b07152d234b70'),
-(18, 'a', 'a', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e'),
-(19, '1', '1', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e');
+(18, 'a', 'user a', '', 'user', '827ccb0eea8a706c4c34a16891f84e7b'),
+(19, 'b', 'user b', '', 'user', '827ccb0eea8a706c4c34a16891f84e7b');
 
 --
 -- Indexes for dumped tables
@@ -120,6 +143,12 @@ ALTER TABLE `folder`
   ADD PRIMARY KEY (`folder_id`);
 
 --
+-- Indexes for table `share`
+--
+ALTER TABLE `share`
+  ADD PRIMARY KEY (`share_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -133,13 +162,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `folder`
 --
 ALTER TABLE `folder`
   MODIFY `folder_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `share`
+--
+ALTER TABLE `share`
+  MODIFY `share_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
