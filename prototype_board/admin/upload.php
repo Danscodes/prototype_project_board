@@ -34,7 +34,7 @@ if ($uploadOk == 0) {
     $todays_date = date("Y-m-d H:i:s");
     $sql="INSERT INTO `files` (`f_id`, `user_id`, `filename`, `file_type`, `date_uploaded`, `remarks`, `file_path`) VALUES (NULL, '$user_id', '$filename', '$imageFileType', '$todays_date', '$remarks', '$target_file');";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
-    if($sql){
+    if($q){
       header('location: ../admin/index.php?page=files');
     }else{
       echo "Sorry, there was an error uploading your file.";

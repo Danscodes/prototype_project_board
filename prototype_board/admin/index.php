@@ -7,14 +7,14 @@ include('../functions.php');
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 	<link rel = "stylesheet" type="text/css" href="../css/responsive.css" />
+	<link rel = "stylesheet" type="text/css" href="../css/select2.min.css" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<title>Project Board</title>
 <?php 
-	 if (!isAdmin()) {
-	  $_SESSION['msg'] = "You must log in first";
-	  header('location: ../login.php');
-	}
+
 	if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['user']);
@@ -51,7 +51,9 @@ include('../functions.php');
 			<ul>
 		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=share"><i class='bx bx-share-alt'></i>Shared Files</a></li>
 		      <li <?php if($load == 'files') {echo 'class="active"';} ?>><a href="index.php?page=files"><i class='bx bx-file-blank'></i>Files</a></li>
-		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
+		      <?php if($_SESSION['user_type']=="admin"){
+?><li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li><?php
+			  }?>
 		    </ul>
 		</div>
 
@@ -61,6 +63,9 @@ include('../functions.php');
 	            case 'share':
 	            require_once('share.php');
 	            break;
+				case 'sharefiles':
+					require_once('sharefiles.php');
+					break;
 	            case 'files':
 	              require_once('files.php');
 	              break;

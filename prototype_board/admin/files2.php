@@ -1,91 +1,202 @@
 <!DOCTYPE html>
+<?php
+$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
+$db = mysqli_select_db($conn,"db_fms");
+$sql = "SELECT * FROM files";
+$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+
+ include_once('../functions.php')
+?>
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel = "stylesheet" type="text/css" href="../css/upload.css" />
+	<title></title>
+	<link rel = "stylesheet" type="text/css" href="../css/create_user.css" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-	<div class="button-align">
+<!-- The Modal -->
+<div id="UpdateFile" class="modal">
 
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-body">
+	  <div class="form-body">
+	  <form action="update_file.php" method="post" enctype="multipart/form-data">
+  
+			  <?php echo display_error(); ?>
+
+			  <div class="input-group">
+				  <label>File_id</label>
+				  <input type="text" id="file_id" name="file_id" value="">
+
+				  <label>File Path</label>
+				  <input type="text" id="file_path" name="file_path" value="">
+
+				  <label>File Name</label>
+				  <input type="text" id="file_name" name="file_name" value="">
+
+
+
+				  <label>File Name</label>
+				  <input type="text" id="file_newname" name="file_newname" value="">
+
+			  </div>
+			  
+		  
+			  <br>
+			  <div class="input-group">
+				  <button type="submit" class="btn" name="update_file_btn" value="Upload Image"> Update File</button>
+			  
+			  </div>
+		  </form>
+	  </div>
+  </div>
+</div>
+</div>
+	<div class="row">
+<div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal1"><i class='bx bx-upload'></i>Upload File</button>
+			<button class="modal-button" href="#ModalFile"> + Upload</button>
 
 				<!-- The Modal -->
-				<div id="myModal1" class="modal">
+				<div id="ModalFile" class="modal">
 
 				  <!-- Modal content -->
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>Select File to Upload:</h2>
+				      <h2>Add File</h2>
 			    	</div>
+
 				    <div class="modal-body">
-					<div class="form-body">
-					<form action="upload.php" method="post" enctype="multipart/form-data">
-				
-					<br>
-					
-					<input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input">
-					<br>
-					<br>
-					<div class="input-group">
+				    	<div class="form-body">
+				    	<form action="upload.php" method="post" enctype="multipart/form-data">
+						<input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input" style="align:center">
+								<?php echo display_error(); ?>
+
+								<div class="input-group">
 									<label>Remarks</label>
-									<input type="text" name="name" value="<?php echo $name; ?>">
+									<input type="text" name="remarks">
 								</div>
-					<input type="submit" value="Upload Image" name="submit">
-					</form>
-					     	<br>
-					     	<br>
+								
+						
+								<br>
+								<div class="input-group">
+									<button type="submit" class="btn" name="uploadfile_btn" value="uploadfile_btn"> + Upload File</button>
+								
+								</div>
+							</form>
+				    	</div>
 				    </div>
-					</div>
 				  </div>
 				</div>
 		</div>
-
-		<div class="second-modal">
+</div>
+<div class="col-2">
+		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal2">Open Modal</button>
+			<button class="modal-button" href="#ModalFolder"> + Add Folder</button>
 
-			<!-- The Modal -->
-			<div id="myModal2" class="modal">
+				<!-- The Modal -->
+				<div id="ModalFolder" class="modal">
 
-			  <!-- Modal content -->
-			  <div class="modal-content">
-			    <div class="modal-header">
-			      <span class="close">×</span>
-			      <h2>Modal Header</h2>
-			    </div>
-			    <div class="modal-body">
-			      <p>Some text in the Modal Body</p>
-			      <p>Some other text...</p>
-			    </div>
-			    <div class="modal-footer">
-			      <h3>Modal Footer</h3>
-			    </div>
-			  </div>
-			</div>	
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				    <div class="modal-body">
+				    	<div class="form-body">
+				    	<form action="upload.php" method="post" enctype="multipart/form-data">
+					
+								<?php echo display_error(); ?>
+
+								<div class="input-group">
+									<label>Folder Name</label>
+									<input type="text" name="username" value="<?php echo $username; ?>">
+								</div>
+								
+							
+								<br>
+								<div class="input-group">
+									<button type="submit" class="btn" name="add_folder_btn" value="Upload Image"> + Add Folder</button>
+								
+								</div>
+							</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
 		</div>
-
-	</div>
-
+</div>
+</div>
 	<br>
 	<hr>
 	<br>
 
 	<div id="tbody">
+		
 		<table width="100%">
 			<tr>
-				<th width="30%" class="">Filename</th>
-				<th width="20%" class="">Date</th>
-				<th width="30%" class="">Feedback</th>
-				<th width="20%" class="">Action</th>
+				<th width="50%">File Name</th>
+				<th width="10%">Remarks</th>
+				<th width="10%">Date uploaded</th>
+				<th width="10%"></th>
 			</tr>
+			<?php
+		
+						while($r = mysqli_fetch_assoc($q))
+						{
+					?> 
+			 	<tr>
+			 		<td><?php echo $r['filename'];?></td>
+					 <td><?php echo $r['remarks'];?></td>
+					 <td><?php echo $r['date_uploaded'];?></td>
+					<?php $file_id = $r['f_id'];
+					$fname =  $r['filename'];
+					$fpath =  $r['file_path'];
+					
+					?>
+		
+		</td>
+		<td>
+		
+
+		<div class="dropdown">
+						  <button class="dropbtn">Action</button>
+						  <div class="dropdown-content">
+						  <a href="../uploads/<?php echo $fname;?>" rel="nofollow">View</a>
+						 	<a href="../uploads/<?php echo $fname;?>" download>Download</a>
+							 <a onclick="selected_id('<?php echo $file_id;?>','<?php echo $fname;?>','<?php echo $fpath;?>')"> Rename</a>
+		
+							<a onclick="delete_file('<?php echo $file_id;?>','<?php echo $fname;?>','<?php echo $fpath;?>')"> Delete</a>
+		 					<a onclick="delete_file('<?php echo $file_id;?>','<?php echo $fname;?>','<?php echo $fpath;?>')"> Share</a>
+						</div>
+						</div>
+	</td>
+</div>
+					</td>
+			 	</tr>
+			 		<?php 
+						}
+					?>
 		</table>
 	</div>
 
+	
+
+	
 <script>
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 
@@ -100,7 +211,7 @@ for (var i = 0; i < btn.length; i++) {
  btn[i].onclick = function(e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
-    modal.style.display = "block";
+	modal.style.display = "block";
  }
 }
 
@@ -121,25 +232,50 @@ window.onclick = function(event) {
      }
     }
 }
+
+function delete_file(val,val2,fpath){
+	if (confirm('Are you sure you want to delete '+val2+'?')) {
+  // Save it!
+  url = "./ajax/delete_file.php";
+    
+      $.post(url,{file_id: val,fname:val2}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=files";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
+function selected_id (val,val2,file_path){
+	var modals = document.querySelectorAll('.modal');
+	modal = document.querySelector('#UpdateFile');
+	modal.style.display = "block";
+	let str = val2;
+const myArr = str.split(".");
+
+
+	document.getElementById("file_path").value = file_path;
+	document.getElementById("file_id").value = val;
+	document.getElementById("file_name").value = val2;
+	document.getElementById("file_newname").value = myArr[0];
+}
+
+function downloadfile(){
+	$.fileDownload('../uploads/document.pdf')
+    .done(function () { alert('File download a success!'); })
+    .fail(function () { alert('File download failed!'); });
+}
+
+
+
 </script>
 </body>
-<style>
-	/* .custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
-.custom-file-input::before {
-  content: 'Select some files';
- 
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-} */
-</style>
 </html>
