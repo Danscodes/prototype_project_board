@@ -51,9 +51,11 @@ include('../functions.php');
 			<ul>
 		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=share"><i class='bx bx-share-alt'></i>Shared Files</a></li>
 		      <li <?php if($load == 'files') {echo 'class="active"';} ?>><a href="index.php?page=files"><i class='bx bx-file-blank'></i>Files</a></li>
-		      <?php if($_SESSION['user_type']=="admin"){
-?><li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li><?php
+			  <li <?php if($load == 'documentprofile') {echo 'class="active"';} ?>><a href="index.php?page=documentprofile"><i class='bx bx-file-blank'></i>Document Profiles</a></li>
+			 <?php if($_SESSION['user_type']=="admin"){
+?><li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-people'></i>Users</a></li><?php
 			  }?>
+
 		    </ul>
 		</div>
 
@@ -77,7 +79,13 @@ include('../functions.php');
 	              break;
 	            case 'delete':
 	              require_once('delete_user.php');
-	              break;   
+	              break;     
+				case 'documentprofile':
+				  require_once('documentprofile.php');
+				  break;  
+				case 'documentprofile_details':
+				  require_once('documentprofile_detail.php');
+				  break;    
 	            default:
 	              require_once('share.php');
 	              break;  
