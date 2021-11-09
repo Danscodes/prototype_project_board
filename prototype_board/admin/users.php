@@ -4,6 +4,8 @@ $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_fms");
 $sql = "SELECT * FROM users";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+$sql2 = "SELECT * FROM groups";
+$q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
@@ -54,6 +56,19 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 										<option value=""></option>
 										<option value="admin">Admin</option>
 										<option value="user">User</option>
+									</select>
+								</div>
+								<div class="input-group">
+									<label>User Group</label>
+									<select name="user_type" id="user_type" >
+									<?php
+									while($row = mysqli_fetch_assoc($q2))
+									{
+								?> 
+								<option value="<?php echo $row['group_id']?>"><?php echo  $row['group_name'];?></option>
+								<?php
+								}
+								?>
 									</select>
 								</div>
 								<div class="input-group">
@@ -115,6 +130,8 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	</div>
 
 <script>
+
+	
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 

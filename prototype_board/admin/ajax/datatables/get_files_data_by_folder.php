@@ -12,6 +12,17 @@ $folder_id = $_REQUEST['folder_id'];
         while ($data = mysqli_fetch_array($q)) {
             $list["f_id"] = $data["f_id"];
             $list["folder_id"] = $data["folder_id"];
+
+            $f_id =$data["folder_id"];
+            $sql2 = "SELECT folder_path,folder_name FROM folder where folder_id = '$f_id'";
+            $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
+         
+						while($r = mysqli_fetch_assoc($q2))
+						{
+                            $list["folder_path"] =  $r['folder_path'];
+                            $list["folder_name"] =  $r['folder_name'];
+                        }
+
             $list["user_id"] = $data["user_id"];
             $list["date_uploaded"] = $data["date_uploaded"];
             $list["filename"] = $data["filename"];

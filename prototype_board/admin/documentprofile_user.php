@@ -21,21 +21,11 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="modal-content">
   <div class="modal-body">
 	  <div class="form-body">
-	  <form action="update_folder_name.php" method="post" enctype="multipart/form-data">
+	  <form action="update_file.php" method="post" enctype="multipart/form-data">
   
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
-				  
-			 	  <label>Folder old Name</label>
-				  <input type="text" id="folder_old_name" name="folder_old_name" value="">
-
-			 	  <label>Folder id</label>
-				  <input type="text" id="folder_id" name="folder_id" value="">
-				  <label>Folder path</label>
-				  <input type="text" id="folder_path" name="folder_path" value="">
-
-			
 		
 				  <label>Folder Name</label>
 				  <input type="text" id="folder_name" name="folder_name" value="">
@@ -77,7 +67,7 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
 								<div class="input-group">
 									<label>Document Profile Name</label>
-									<input type="text" name="folder_name">
+									<input type="text" name="profolder_name">
                                     <label>Description</label>
 									<input type="text" name="desc">
 								</div>
@@ -148,7 +138,7 @@ function get_products_data(){
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit</a><a href='index.php?page=documentprofile_details&folder_name="+JSON.stringify(row.folder_name)+"&folder_path="+JSON.stringify(row.folder_path)+"&folder_id="+JSON.stringify(row.folder_id)+"' >Open</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href='index.php?page=documentprofile_details&folder_name="+JSON.stringify(row.folder_name)+"&folder_path="+JSON.stringify(row.folder_path)+"&folder_id="+JSON.stringify(row.folder_id)+"' >Open</a></div></div>";
         }
       },
       ]
@@ -162,24 +152,22 @@ function get_products_data(){
 	modal.style.display = "block";
 
 
+console.log(val.folder_name);
 	document.getElementById("folder_name").value = val.folder_name;
-	document.getElementById("folder_id").value = val.folder_id;
-	document.getElementById("folder_path").value = val.folder_path;
-	document.getElementById("folder_old_name").value = val.folder_name;
 
 
 }
 
 
   function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.folder_name+'?')) {
+	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
   // Save it!
-  url = "./ajax/delete_folder.php";
+  url = "./ajax/delete_file.php";
     
-      $.post(url,{folder_id: val.folder_id,folder_name:val.folder_name}, function(data){
+      $.post(url,{file_id: val.f_id,fname:val.filename}, function(data){
 		console.log(data);
             if(data == 1){
-				window.location.href = "index.php?page=documentprofile";
+				window.location.href = "index.php?page=files";
     		}else{
      
  			}

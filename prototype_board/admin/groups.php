@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <?php
-$folder_path = $_REQUEST['folder_path'];
-$folder_name  = $_REQUEST['folder_name'];
-$folder_id = $_REQUEST['folder_id'];
 $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_fms");
 $sql = "SELECT * FROM files";
@@ -24,18 +21,11 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="modal-content">
   <div class="modal-body">
 	  <div class="form-body">
-	  <form action="update_file_profile_details.php" method="post" enctype="multipart/form-data">
+	  <form action="update_file.php" method="post" enctype="multipart/form-data">
   
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
-			  	  <label>folder_path</label>
-				  <input type="text" id="folder_path" name="folder_path" value="<?php  $Str = trim($folder_path, '"'); echo $Str;?>">
-				  <label>folder_name</label>
-				  <input type="text" id="folder_id" name="folder_id" value="<?php  $Str = trim($folder_id, '"'); echo $Str;?>">
-				  <label>folder_name</label>
-				  <input type="text" id="folder_name" name="folder_name" value="<?php  $Str = trim($folder_name, '"'); echo $Str;?>">
-
 				  <label>File_id</label>
 				  <input type="text" id="file_id" name="file_id" value="">
 
@@ -61,8 +51,6 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 </div>
 </div>
 
-<h1>Document Profile: <?php  $Str = trim($folder_name, '"'); echo $Str;?></h1>
-
 <div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
@@ -75,38 +63,22 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>Add File</h2>
+				      <h2>Add Group</h2>
 			    	</div>
 
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    	<form action="upload_documentprofile.php" method="post" enctype="multipart/form-data">
-						<input type="file" name="fileToUpload" id="fileToUpload" class="custom-file-input" style="align:center">
-								<?php echo display_error(); ?>
-
-                                <div class="input-group">
-									<label>Folder ID</label>
-									<input type="text" name="folder_id" value="<?php  $Str = trim($folder_id, '"'); echo $Str;?>">
-								</div>
-                                <div class="input-group">
-									<label>Folder PATH</label>
-									<input type="text" name="folder_path" value="<?php  $Str = trim($folder_path, '"'); echo $Str;?>">
-								</div>
-
-                                <div class="input-group">
-									<label>Folder Name</label>
-									<input type="text" name="folder_name" value="<?php  $Str = trim($folder_name, '"'); echo $Str;?>">
-								</div>
-
+				    	<form action="add_group.php" method="post" enctype="multipart/form-data">
+					
 								<div class="input-group">
-									<label>Remarks</label>
-									<input type="text" name="remarks">
+									<label>Group Name</label>
+									<input type="text" name="group_name">
 								</div>
 								
 						
 								<br>
 								<div class="input-group">
-									<button type="submit" class="btn" name="uploadfile_btn" value="uploadfile_btn"> + Upload File</button>
+									<button type="submit" class="btn" name="uploadfile_btn" value="uploadfile_btn"> Add Group</button>
 								
 								</div>
 							</form>
@@ -125,9 +97,8 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                     <tr>
                       
                   
-                      <th width="35%">File Name</th>
-                      <th width="20%">Date Uploaded</th>
-                      <th width="25%">Remarks</th>
+                      <th width="80%">Group Name</th>
+                    
                       <th width="20%">Action</th>
              
                     </tr>
@@ -144,48 +115,44 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	
 <script>
 $(document).ready(function() {
-	get_products_data(<?php echo $folder_id;?>);
+	get_groups_data();
 } );
 
-function get_products_data(val){
+function get_groups_data(){
     $("#mydataTable").DataTable().destroy();
     $("#mydataTable").dataTable({
     
       "ajax":{
         "type":"POST",
-        "url":"ajax/datatables/get_files_data_by_folder.php",
-        "data":{ "folder_id" : val,},
+        "url":"ajax/datatables/get_groups_data.php",
+        "data":"",
         "processing":true
       },
       "columns":[
       {
-        "data":"filename"
-      },
-	  {
-        "data":"date_uploaded",
-      },
-      {
-        "data":"remarks",
-      },
-      {
+        "data":"group_name"
+      },{
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Rename</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'></div></div>";
         }
       },
+	  
       ]
     });
   }
 
 
   function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.folder_path+'?')) {
-  url = "./ajax/delete_file_profile.php";
-      $.post(url,{file_id: val.f_id,fname:val.filename,folder_path:val.folder_path}, function(data){
+	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
+  // Save it!
+  url = "./ajax/delete_file.php";
+    
+      $.post(url,{file_id: val.f_id,fname:val.filename}, function(data){
 		console.log(data);
             if(data == 1){
-				window.location.href = 'index.php?page=documentprofile_details&folder_name='+val.folder_name+'&folder_path='+val.folder_path+'&folder_id='+val.folder_id;
+				window.location.href = "index.php?page=files";
     		}else{
-				alert('failed to delete');
+     
  			}
 });
 

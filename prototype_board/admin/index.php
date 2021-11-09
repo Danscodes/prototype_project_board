@@ -55,7 +55,9 @@ include('../functions.php');
 			 <?php if($_SESSION['user_type']=="admin"){
 ?><li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-people'></i>Users</a></li><?php
 			  }?>
-
+	 <?php if($_SESSION['user_type']=="admin"){
+?><li <?php if($load == 'groups') {echo 'class="active"';} ?>><a href="index.php?page=groups"><i class='bx bx-people'></i>Groups</a></li><?php
+			  }?>
 		    </ul>
 		</div>
 
@@ -85,7 +87,10 @@ include('../functions.php');
 				  break;  
 				case 'documentprofile_details':
 				  require_once('documentprofile_detail.php');
-				  break;    
+				  break;
+				  case 'groups':
+					require_once('groups.php');
+					break;       
 	            default:
 	              require_once('share.php');
 	              break;  
