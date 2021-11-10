@@ -54,7 +54,7 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#ModalFile"> + Upload</button>
+			<button class="modal-button" href="#ModalFile"> Add Group</button>
 
 				<!-- The Modal -->
 				<div id="ModalFile" class="modal">
@@ -88,7 +88,39 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				</div>
 		</div>
 </div>
+<div class="first-modal">
+			<!-- Trigger/Open The Modal -->
 	
+				<!-- The update Modal -->
+				<div id="UpdateGroups" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				  	<div class="modal-header">
+				      <span class="close">×</span>
+				      <h2>Update Group</h2>
+			    	</div>
+
+				    <div class="modal-body">
+				    	<div class="form-body">
+						<form action="update_group.php" method="post" enctype="multipart/form-data">
+						<div class="input-group">
+									<label>Group id</label>
+									<input type="text" name="u_group_id" id ="u_group_id">
+									<label>Group Name</label>
+									<input type="text" name="u_group_name" id ="u_group_name">
+								</div>
+								<div class="input-group">
+									<button type="submit" class="btn" name="uploadfile_btn" value="uploadfile_btn"> Update Group</button>
+								
+								</div>
+						
+						</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
+		</div>
 
 <div id="tbody">
 
@@ -133,7 +165,8 @@ function get_groups_data(){
         "data":"group_name"
       },{
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'></div></div>";
+			return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+
         }
       },
 	  
@@ -143,14 +176,14 @@ function get_groups_data(){
 
 
   function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
+	if (confirm('Are you sure you want to delete '+val.group_name+'?')) {
   // Save it!
-  url = "./ajax/delete_file.php";
+  url = "./ajax/delete_group.php";
     
-      $.post(url,{file_id: val.f_id,fname:val.filename}, function(data){
+      $.post(url,{group_id: val.group_id}, function(data){
 		console.log(data);
             if(data == 1){
-				window.location.href = "index.php?page=files";
+				window.location.href = "index.php?page=groups";
     		}else{
      
  			}
@@ -167,14 +200,12 @@ function get_groups_data(){
 function selected_id(val){
 	
 	var modals = document.querySelectorAll('.modal');
-	modal = document.querySelector('#UpdateFile');
+	modal = document.querySelector('#UpdateGroups');
 	modal.style.display = "block";
-	let str = val.filename;
-const myArr = str.split(".");
-	document.getElementById("file_path").value = val.file_path;
-	document.getElementById("file_id").value = val.f_id;
-	document.getElementById("file_name").value = val.filename;
-	document.getElementById("file_newname").value = myArr[0];
+
+	document.getElementById("u_group_id").value = val.group_id;
+	document.getElementById("u_group_name").value = val.group_name;
+
 
 }
 
