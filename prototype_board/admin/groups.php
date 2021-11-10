@@ -105,8 +105,8 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				    	<div class="form-body">
 						<form action="update_group.php" method="post" enctype="multipart/form-data">
 						<div class="input-group">
-									<label>Group id</label>
-									<input type="text" name="u_group_id" id ="u_group_id">
+									<label style="display:none">Group id</label>
+									<input style="display:none" type="text" name="u_group_id" id ="u_group_id">
 									<label>Group Name</label>
 									<input type="text" name="u_group_name" id ="u_group_name">
 								</div>

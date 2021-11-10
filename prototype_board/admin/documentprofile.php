@@ -29,13 +29,13 @@ $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 
 			  <div class="input-group">
 				  
-			 	  <label>Folder old Name</label>
-				  <input type="text" id="folder_old_name" name="folder_old_name" value="">
+			 	  <label style="display:none">Folder old Name</label>
+				  <input type="text" id="folder_old_name" name="folder_old_name" value="" style="display:none">
 
-			 	  <label>Folder id</label>
-				  <input type="text" id="folder_id" name="folder_id" value="">
-				  <label>Folder path</label>
-				  <input type="text" id="folder_path" name="folder_path" value="">
+			 	  <label style="display:none">Folder id</label>
+				  <input type="text" id="folder_id" name="folder_id" value="" style="display:none">
+				  <label style="display:none">Folder path</label>
+				  <input type="text" id="folder_path" name="folder_path" value="" style="display:none">
 
 			
 		

@@ -116,8 +116,8 @@ $q3 = mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 				    	<div class="form-body">
 						<form action="update_user.php" method="post" enctype="multipart/form-data">
 						<div class="input-group">
-									<label>user_id</label>
-									<input type="text" name="u_user_id" id="u_user_id">
+									<label style="display:none">user_id</label>
+									<input style="display:none" type="text" name="u_user_id" id="u_user_id">
 								</div>
 						<div class="input-group">
 									<label>Username</label>

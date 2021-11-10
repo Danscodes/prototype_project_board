@@ -29,21 +29,21 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
-			  	  <label>folder_path</label>
-				  <input type="text" id="folder_path" name="folder_path" value="<?php  $Str = trim($folder_path, '"'); echo $Str;?>">
-				  <label>folder_name</label>
-				  <input type="text" id="folder_id" name="folder_id" value="<?php  $Str = trim($folder_id, '"'); echo $Str;?>">
-				  <label>folder_name</label>
-				  <input type="text" id="folder_name" name="folder_name" value="<?php  $Str = trim($folder_name, '"'); echo $Str;?>">
+			  	  <label style="display:none">folder_path</label>
+				  <input type="text" id="folder_path" name="folder_path" value="<?php  $Str = trim($folder_path, '"'); echo $Str;?>" style="display:none">
+				  <label style="display:none">folder_name</label>
+				  <input type="text" id="folder_id" name="folder_id" value="<?php  $Str = trim($folder_id, '"'); echo $Str;?>" style="display:none">
+				  <label style="display:none">folder_name</label>
+				  <input type="text" id="folder_name" name="folder_name" value="<?php  $Str = trim($folder_name, '"'); echo $Str;?>" style="display:none">
 
-				  <label>File_id</label>
-				  <input type="text" id="file_id" name="file_id" value="">
+				  <label style="display:none">File_id</label>
+				  <input type="text" id="file_id" name="file_id" value="" style="display:none">
 
-				  <label>File Path</label>
-				  <input type="text" id="file_path" name="file_path" value="">
+				  <label style="display:none">File Path</label>
+				  <input type="text" id="file_path" name="file_path" value="" style="display:none">
 
-				  <label>File Name</label>
-				  <input type="text" id="file_name" name="file_name" value="">
+				  <label style="display:none">File Name</label>
+				  <input style="display:none" type="text" id="file_name" name="file_name" value="">
 				  <label>File Name</label>
 				  <input type="text" id="file_newname" name="file_newname" value="">
 
