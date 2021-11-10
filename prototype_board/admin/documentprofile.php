@@ -4,6 +4,8 @@ $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_fms");
 $sql = "SELECT * FROM files";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+$sql2 = "SELECT * FROM groups";
+$q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
@@ -80,8 +82,28 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 									<input type="text" name="folder_name">
                                     <label>Description</label>
 									<input type="text" name="desc">
+									
 								</div>
-								
+								<div id="user" class="input-group" >
+									<label>User Group</label>
+									<select name="user_group" id="user_group" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
+									<?php
+									while($row = mysqli_fetch_assoc($q2))
+									{
+								?> 
+								<option value="<?php echo $row['group_id']?>"><?php echo  $row['group_name'];?></option>
+								<?php
+								}
+								?>
+									</select>
+								</div>
+
 						
 								<br>
 								<div class="input-group">
@@ -105,7 +127,9 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                       
                   
                       <th width="35%">Document Profile</th>
+					  <th width="25%">Group</th>
                       <th width="20%">Date Uploaded</th>
+				
                       <th width="25%">Remarks</th>
                       <th width="20%">Action</th>
              
@@ -139,6 +163,9 @@ function get_products_data(){
       "columns":[
       {
         "data":"folder_name"
+      },
+	  {
+        "data":"group_name",
       },
 	  {
         "data":"date_created",

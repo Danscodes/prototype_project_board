@@ -257,3 +257,13 @@ th {
 .dropdown:hover .dropbtn {
   background-color: #003366;
 }
+
+.form-body #user_group {
+  height: 40px;
+  width: 93%;
+  padding: 5px 10px;
+  background: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}

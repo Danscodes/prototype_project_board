@@ -4,15 +4,15 @@ session_start();
 $user_id = $_SESSION['user_id'];
     $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
     $db = mysqli_select_db($conn,"db_fms");
-    $sql = "SELECT * FROM folder where folder_id !='1'";
+    $sql = "SELECT * FROM users order by user_id DESC";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
         $response["data"] = array();
         while ($data = mysqli_fetch_array($q)) {
-            $list["folder_id"] = $data["folder_id"];
-            $list["folder_path"] = $data["folder_path"];
+            $list["user_id"] = $data["user_id"];
+            $list["group_id"] = $data["group_id"];
+            
             $group_id =$data["group_id"];
-     
             if($group_id==0){
                 $list["group_name"] =  "admin";
             }else{
@@ -25,9 +25,14 @@ $user_id = $_SESSION['user_id'];
                                 $list["group_name"] =  $r['group_name'];
                             }
             }
-            $list["folder_name"] = $data["folder_name"];
-            $list["date_created"] = $data["date_created"];
-            $list["desc"] = $data["desc"];
+         
+
+            $list["username"] = $data["username"];
+            $list["name"] = $data["name"];
+            $list["email"] = $data["email"];
+            $list["user_type"] = $data["user_type"];
+            $list["password"] = $data["password"];
+        
             array_push($response["data"], $list);
         }
     	echo json_encode($response);

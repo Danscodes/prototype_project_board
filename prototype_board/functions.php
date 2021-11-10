@@ -43,6 +43,7 @@ function register(){
 	$name    =  e($_POST['name']);
 	$email       =  e($_POST['email']);
 	$user_type = e($_POST['user_type']);
+	$user_group  =  e($_POST['user_group']);
 	$password_1  =  e($_POST['password_1']);
 	$password_2  =  e($_POST['password_2']);
 
@@ -72,14 +73,21 @@ function register(){
 
 		if (isset($_POST['user_type'])) {
 			$user_type = e($_POST['user_type']);
-			$query = "INSERT INTO users (username, name, email, user_type, password) 
-					  VALUES('$username', '$name', '$email', '$user_type', '$password')";
-			mysqli_query($db, $query);
-			$_SESSION['success']  = "New user successfully created!!";
-			header('location: ../admin/index.php?page=users');
+			if($user_type=="user"){	$query = "INSERT INTO users (group_id,username, name, email, user_type, password) 
+				VALUES('$user_group','$username', '$name', '$email', '$user_type', '$password')";
+	  mysqli_query($db, $query);
+	  $_SESSION['success']  = "New user successfully created!!";
+	  header('location: ../admin/index.php?page=users');}else{
+		$query = "INSERT INTO users (group_id,username, name, email, user_type, password) 
+				VALUES('$user_group','$username', '$name', '$email', '$user_type', '$password')";
+mysqli_query($db, $query);
+$_SESSION['success']  = "New user successfully created!!";
+header('location: ../admin/index.php?page=users');
+	  }
+		
 		}else{
-			$query = "INSERT INTO users (username, name, email, user_type, password) 
-					  VALUES('$username', '$name', '$email', '$user_type', '$password')";
+			$query = "INSERT INTO users (group_id,username, name, email, user_type, password) 
+				VALUES('$user_group','$username', '$name', '$email', '$user_type', '$password')";
 			mysqli_query($db, $query);
 
 			// get id of the created user
@@ -222,6 +230,7 @@ function login(){
 			}else{
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['user_id'] = $logged_in_user['user_id'];
+				$_SESSION['group_id'] = $logged_in_user['group_id'];
 				$_SESSION['user_type'] = 'user';
 				$_SESSION['success']  = "You are now logged in";
 				header('location: admin/index.php');

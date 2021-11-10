@@ -63,6 +63,7 @@ include('../functions.php');
 
 		<div class="col-10 col-s-9 content">
 			<?php
+			if($_SESSION['user_type']=="admin"){
 	          switch ($load) {
 	            case 'share':
 	            require_once('share.php');
@@ -95,6 +96,40 @@ include('../functions.php');
 	              require_once('share.php');
 	              break;  
 	          	}
+			}else{
+				switch ($load) {
+					case 'share':
+					require_once('share.php');
+					break;
+					case 'sharefiles':
+						require_once('sharefiles.php');
+						break;
+					case 'files':
+					  require_once('files.php');
+					  break;
+					case 'users':
+					  require_once('users.php');
+					  break;
+					 case 'update':
+					  require_once('update_user.php');
+					  break;
+					case 'delete':
+					  require_once('delete_user.php');
+					  break;     
+					case 'documentprofile':
+					  require_once('documentprofile_user.php');
+					  break;  
+					case 'documentprofile_details':
+					  require_once('documentprofile_detail.php');
+					  break;
+					  case 'groups':
+						require_once('groups.php');
+						break;       
+					default:
+					  require_once('share.php');
+					  break;  
+					  }
+			}
 			?>
 		</div>
 	</div>

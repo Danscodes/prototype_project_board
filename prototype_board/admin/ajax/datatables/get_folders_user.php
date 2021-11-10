@@ -1,10 +1,10 @@
 <?php
 
 session_start();
-$user_id = $_SESSION['user_id'];
+$mygroup_id = $_SESSION['group_id'];
     $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
     $db = mysqli_select_db($conn,"db_fms");
-    $sql = "SELECT * FROM folder where folder_id !='1'";
+    $sql = "SELECT * FROM folder where folder_id !='1' and group_id = '$mygroup_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
         $response["data"] = array();

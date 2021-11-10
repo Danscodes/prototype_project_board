@@ -118,10 +118,10 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	
 <script>
 $(document).ready(function() {
-	get_products_data();
+	get_files_data();
 } );
 
-function get_products_data(){
+function get_files_data(){
     $("#mydataTable").DataTable().destroy();
     $("#mydataTable").dataTable({
     

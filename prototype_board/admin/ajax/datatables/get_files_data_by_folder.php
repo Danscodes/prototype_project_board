@@ -5,7 +5,7 @@ $user_id = $_SESSION['user_id'];
 $folder_id = $_REQUEST['folder_id'];
     $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
     $db = mysqli_select_db($conn,"db_fms");
-    $sql = "SELECT * FROM files where user_id = '$user_id' and folder_id='$folder_id'";
+    $sql = "SELECT * FROM files where folder_id='$folder_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
         $response["data"] = array();

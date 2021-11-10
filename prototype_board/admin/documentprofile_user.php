@@ -4,6 +4,8 @@ $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_fms");
 $sql = "SELECT * FROM files";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+$sql2 = "SELECT * FROM groups";
+$q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
@@ -21,11 +23,21 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="modal-content">
   <div class="modal-body">
 	  <div class="form-body">
-	  <form action="update_file.php" method="post" enctype="multipart/form-data">
+	  <form action="update_folder_name.php" method="post" enctype="multipart/form-data">
   
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
+				  
+			 	  <label>Folder old Name</label>
+				  <input type="text" id="folder_old_name" name="folder_old_name" value="">
+
+			 	  <label>Folder id</label>
+				  <input type="text" id="folder_id" name="folder_id" value="">
+				  <label>Folder path</label>
+				  <input type="text" id="folder_path" name="folder_path" value="">
+
+			
 		
 				  <label>Folder Name</label>
 				  <input type="text" id="folder_name" name="folder_name" value="">
@@ -47,17 +59,13 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#ModalFile"> + Document Profile</button>
-
+		
 				<!-- The Modal -->
 				<div id="ModalFile" class="modal">
 
 				  <!-- Modal content -->
 				  <div class="modal-content">
-				  	<div class="modal-header">
-				      <span class="close">×</span>
-				      <h2>Add Document Profile</h2>
-			    	</div>
+				  	
 
 				    <div class="modal-body">
 				    	<div class="form-body">
@@ -67,11 +75,31 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
 								<div class="input-group">
 									<label>Document Profile Name</label>
-									<input type="text" name="profolder_name">
+									<input type="text" name="folder_name">
                                     <label>Description</label>
 									<input type="text" name="desc">
+									
 								</div>
-								
+								<div id="user" class="input-group" >
+									<label>User Group</label>
+									<select name="user_group" id="user_group" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
+									<?php
+									while($row = mysqli_fetch_assoc($q2))
+									{
+								?> 
+								<option value="<?php echo $row['group_id']?>"><?php echo  $row['group_name'];?></option>
+								<?php
+								}
+								?>
+									</select>
+								</div>
+
 						
 								<br>
 								<div class="input-group">
@@ -95,7 +123,9 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                       
                   
                       <th width="35%">Document Profile</th>
+					  <th width="25%">Group</th>
                       <th width="20%">Date Uploaded</th>
+				
                       <th width="25%">Remarks</th>
                       <th width="20%">Action</th>
              
@@ -122,13 +152,16 @@ function get_products_data(){
     
       "ajax":{
         "type":"POST",
-        "url":"ajax/datatables/get_folders.php",
+        "url":"ajax/datatables/get_folders_user.php",
         "data":"",
         "processing":true
       },
       "columns":[
       {
         "data":"folder_name"
+      },
+	  {
+        "data":"group_name",
       },
 	  {
         "data":"date_created",
@@ -152,22 +185,24 @@ function get_products_data(){
 	modal.style.display = "block";
 
 
-console.log(val.folder_name);
 	document.getElementById("folder_name").value = val.folder_name;
+	document.getElementById("folder_id").value = val.folder_id;
+	document.getElementById("folder_path").value = val.folder_path;
+	document.getElementById("folder_old_name").value = val.folder_name;
 
 
 }
 
 
   function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
+	if (confirm('Are you sure you want to delete '+val.folder_name+'?')) {
   // Save it!
-  url = "./ajax/delete_file.php";
+  url = "./ajax/delete_folder.php";
     
-      $.post(url,{file_id: val.f_id,fname:val.filename}, function(data){
+      $.post(url,{folder_id: val.folder_id,folder_name:val.folder_name}, function(data){
 		console.log(data);
             if(data == 1){
-				window.location.href = "index.php?page=files";
+				window.location.href = "index.php?page=documentprofile";
     		}else{
      
  			}
