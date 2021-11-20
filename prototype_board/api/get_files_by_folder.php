@@ -1,6 +1,6 @@
 
 <?php
-include '../db_connect.php'
+include '../db_connect.php';
 
 $user_id = $_POST['user_id'];
 $folder_id = $_POST['folder_id'];

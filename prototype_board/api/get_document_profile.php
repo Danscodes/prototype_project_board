@@ -1,5 +1,5 @@
 <?php
-include '../db_connect.php'
+include '../db_connect.php';
 
 $user_id = $_POST['user_id'];
 $mygroup_id = $_POST['group_id'];
