@@ -1,5 +1,11 @@
 <?php
+include '../db_connect.php'
+
 $user_id = $_POST['user_id'];
+$host 	  = "mysql.hostinger.com";
+$username = "u245151288_projects";
+$password = "12345";
+$database = "u245151288_projects";
 
     $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
     $db = mysqli_select_db($conn,"db_fms");

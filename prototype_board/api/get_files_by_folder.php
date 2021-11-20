@@ -1,9 +1,11 @@
 
 <?php
+include '../db_connect.php'
+
 $user_id = $_POST['user_id'];
 $folder_id = $_POST['folder_id'];
-$db = mysqli_connect('localhost', 'root', '', 'db_fms');
-$sql = "SELECT * FROM files where folder_id ='$folder_id'";
+
+$sql = "SELECT * FROM files where user_id = '$user_id' and folder_id ='$folder_id'";
 $q = mysqli_query($db,$sql) or die (mysqli_error($db));
 
     $response_array['data'] = array();
@@ -12,7 +14,7 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($db));
     while($r = mysqli_fetch_assoc($q))
     {
         $folder_id =$r["folder_id"];
-        $sql3 = "SELECT folder_name FROM folder where folder_id = '$folder_id'";
+        $sql3 = "SELECT folder_name FROM folder where user_id = '$folder_id'";
         $q3 = mysqli_query($db,$sql3) or die (mysqli_error($db));
         $folder_name="";
                     while($r3 = mysqli_fetch_assoc($q3))

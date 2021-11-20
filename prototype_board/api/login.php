@@ -1,9 +1,7 @@
 <?php
+include '../db_connect.php';
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-// connect to database
-$db = mysqli_connect('localhost', 'root', '', 'db_fms');
-
 
     $pass = md5($password);
 
