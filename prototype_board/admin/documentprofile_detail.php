@@ -3,8 +3,7 @@
 $folder_path = $_REQUEST['folder_path'];
 $folder_name  = $_REQUEST['folder_name'];
 $folder_id = $_REQUEST['folder_id'];
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_fms");
+include '../db_connect.php';
 $sql = "SELECT * FROM files";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 

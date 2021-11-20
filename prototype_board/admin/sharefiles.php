@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
+include '../db_connect.php';
 $file_id = $_REQUEST['f_id'];
 $filename = $_REQUEST['filename'];
-$db = mysqli_select_db($conn,"db_fms");
+
 $sql = "SELECT b.name,b.user_id,c.filename FROM `share` a INNER join users b on a.user_id=b.user_id INNER JOIN files c on a.file_id=c.f_id where c.f_id = '$file_id'";
 
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));

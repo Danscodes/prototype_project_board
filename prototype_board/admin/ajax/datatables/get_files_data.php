@@ -1,9 +1,9 @@
 <?php
 
+
 session_start();
+include '../../../db_connect.php';
 $user_id = $_SESSION['user_id'];
-    $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-    $db = mysqli_select_db($conn,"db_fms");
     $sql = "SELECT * FROM files where user_id = '$user_id' and folder_id ='0'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 

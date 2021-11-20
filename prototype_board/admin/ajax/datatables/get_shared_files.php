@@ -1,9 +1,7 @@
 <?php
 session_start();
 $user_id = $_SESSION['user_id'];
-
-    $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-    $db = mysqli_select_db($conn,"db_fms");
+include '../../../db_connect.php';
     $sql = "SELECT *,a.user_id as owner FROM `files` a inner join share b on a.f_id = b.file_id where b.user_id = '$user_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 

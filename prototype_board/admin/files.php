@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_fms");
+include '../db_connect.php';
 $sql = "SELECT * FROM files";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
