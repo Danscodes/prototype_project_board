@@ -1,12 +1,11 @@
 <?php 
 //global file path
-$GLOBALS['file_path'] = 'C:\xampp\htdocs\prototype_project_board\prototype_board';
+$GLOBALS['file_path'] = 'http://projects.skiedflakes.site/prototype_board';
 
 session_start();
 
 // connect to database
-$db = mysqli_connect('localhost', 'root', '', 'db_fms');
-
+include 'db_connect.php';
 // variable declaration
 $username = "";
 $email    = "";

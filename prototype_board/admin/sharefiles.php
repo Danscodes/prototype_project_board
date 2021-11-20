@@ -30,10 +30,10 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
 			  <div class="input-group">
 				  <label>File_id</label>
-				  <input type="text" id="file_id" name="file_id" value="">
+				  <input type="text" id="file_id" name="file_id" value=""style="display:none">
 
 				  <label>File Path</label>
-				  <input type="text" id="file_path" name="file_path" value="">
+				  <input type="text" id="file_path" name="file_path" value=""style="display:none">
 
 				  <label>File Name</label>
 				  <input type="text" id="file_name" name="file_name" value="">
@@ -73,14 +73,20 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				    	<div class="form-body">
 				    	<form action="share_user.php" method="post" enctype="multipart/form-data">
                         <div class="input-group">
-                            <label>File_id</label>
-                            <input type="text" id="file_id" name="file_id" value='<?php $Str = trim($file_id, '"'); echo $Str;?>'>
-                            <label>File Name</label>
-                            <input type="text" id="filename" name="filename" value='<?php echo $filename;?>'>
+                            <label style="display:none">File_id</label>
+                            <input type="text" id="file_id" name="file_id" value='<?php $Str = trim($file_id, '"'); echo $Str;?>'style="display:none">
+                            <label style="display:none">File Name</label>
+                            <input type="text" id="filename" name="filename" value='<?php echo $filename;?>' style="display:none">
 
                          
                             <label>SELECT USER</label>
-                                <select class="custom-select" name="user_id" id="user_id" style="width:100%;">
+                                <select class="custom-select" name="user_id" id="user_id" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
                                     <option value="0">Select User:</option>
                                         <?php 
                                             $supplier = mysqli_query($conn,"SELECT * FROM users");
