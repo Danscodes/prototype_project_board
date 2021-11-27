@@ -47,6 +47,13 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				  <input type="text" id="file_newname" name="file_newname" value="">
 
 			  </div>
+
+			  <div class="input-group">
+		
+				  <label>Remarks</label>
+				  <input type="text" id="update_remarks" name="update_remarks" value="">
+
+			  </div>
 			  
 		  
 			  <br>
@@ -168,7 +175,7 @@ function get_products_data(val){
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Rename</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Update</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
         }
       },
       ]

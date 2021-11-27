@@ -1,10 +1,10 @@
 <?php
-include '../db_connect.php';
+include '../db_connect.php'
 
 $user_id = $_POST['user_id'];
 $mygroup_id = $_POST['group_id'];
 
-    $sql = "SELECT * FROM folder where folder_id !='0' and group_id = '$mygroup_id'";
+    $sql = "SELECT * FROM folder where folder_id !='1' and group_id = '$mygroup_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
         $response["data"] = array();

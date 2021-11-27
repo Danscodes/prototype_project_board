@@ -4,7 +4,7 @@ session_start();
 include '../../../db_connect.php';
 $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT * FROM folder where folder_id !='1'";
+    $sql = "SELECT * FROM folder where user_id !='$user_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
         $response["data"] = array();

@@ -1,6 +1,14 @@
 <?php
 include '../db_connect.php';
+
 $user_id = $_POST['user_id'];
+$host 	  = "mysql.hostinger.com";
+$username = "u245151288_projects";
+$password = "12345";
+$database = "u245151288_projects";
+
+    $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
+    $db = mysqli_select_db($conn,"db_fms");
     $sql = "SELECT *,a.user_id as owner FROM `files` a inner join share b on a.f_id = b.file_id where b.user_id = '$user_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 

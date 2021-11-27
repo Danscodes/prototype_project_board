@@ -39,6 +39,12 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 			  </div>
 			  
 		  
+			  <div class="input-group">
+		
+				  <label>Remarks</label>
+				  <input type="text" id="update_remarks" name="update_remarks" value="">
+
+			  </div>
 			  <br>
 			  <div class="input-group">
 				  <button type="submit" class="btn" name="update_file_btn" value="Upload Image"> Update File</button>
@@ -142,7 +148,7 @@ function get_files_data(){
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Rename</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Update</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
         }
       },
       ]
@@ -183,6 +189,7 @@ const myArr = str.split(".");
 	document.getElementById("file_id").value = val.f_id;
 	document.getElementById("file_name").value = val.filename;
 	document.getElementById("file_newname").value = myArr[0];
+	document.getElementById("update_remarks").value = val.remarks;
 	
 
 }

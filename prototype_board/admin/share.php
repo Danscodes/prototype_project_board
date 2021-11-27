@@ -21,21 +21,23 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 <div class="modal-content">
   <div class="modal-body">
 	  <div class="form-body">
-	  <form action="update_file.php" method="post" enctype="multipart/form-data">
+	  <form action="update_file_share.php" method="post" enctype="multipart/form-data">
   
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
-				  <label>File_id</label>
+				  <label style="display:none">File_id</label>
 				  <input type="text" id="file_id" name="file_id" value="" style="display:none">
 
-				  <label>File Path</label>
+				  <label style="display:none">File Path</label>
 				  <input type="text" id="file_path" name="file_path" value="" style="display:none">
 
-				  <label>File Name</label>
-				  <input type="text" id="file_name" name="file_name" value="">
+				  <label style="display:none">File Name</label>
+				  <input type="text" id="file_name" name="file_name" value=""style="display:none">
 				  <label>File Name</label>
 				  <input type="text" id="file_newname" name="file_newname" value="">
+          <label>Remarks</label>
+				  <input type="text" id="update_remarks" name="update_remarks" value="">
 
 			  </div>
 			  
@@ -105,7 +107,7 @@ function get_products_data(){
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Rename</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Update</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
         }
       },
       ]
@@ -146,6 +148,7 @@ const myArr = str.split(".");
 	document.getElementById("file_id").value = val.f_id;
 	document.getElementById("file_name").value = val.filename;
 	document.getElementById("file_newname").value = myArr[0];
+	document.getElementById("update_remarks").value = val.remarks;
 
 }
 

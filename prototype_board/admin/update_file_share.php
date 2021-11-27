@@ -28,7 +28,7 @@ $user_id = $_SESSION['user_id'];
       
 
 	if ($q) {
-        header('location: ../admin/index.php?page=files');
+        header('location: ../admin/index.php?page=share');
 	}else{
         echo 'err';
     }

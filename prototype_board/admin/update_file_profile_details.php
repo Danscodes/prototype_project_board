@@ -9,6 +9,7 @@ $folder_id    =  $_POST['folder_id'];
 	$file_path    =  $_POST['file_path'];
 	$file_name    =  $_POST['file_name'];
 	$file_newname    =  $_POST['file_newname'];
+	$update_remarks    =  $_POST['update_remarks'];
 
 
 	$file_old_name = explode(".", $file_name);
@@ -22,7 +23,7 @@ $folder_id    =  $_POST['folder_id'];
 
 	if (rename($oldname, $newname)) {
 
-        $sql="UPDATE `files` SET `file_path` = '$newname', `filename` = '$complete_file_name' WHERE `files`.`f_id` = '$file_id'";
+        $sql="UPDATE `files` SET `file_path` = '$newname', `filename` = '$complete_file_name',  `remarks`='$update_remarks' WHERE `files`.`f_id` = '$file_id'";
         $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
       

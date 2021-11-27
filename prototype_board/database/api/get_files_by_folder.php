@@ -5,7 +5,7 @@ include '../db_connect.php';
 $user_id = $_POST['user_id'];
 $folder_id = $_POST['folder_id'];
 
-$sql = "SELECT * FROM files where folder_id ='$folder_id'";
+$sql = "SELECT * FROM files where user_id = '$user_id' and folder_id ='$folder_id'";
 $q = mysqli_query($db,$sql) or die (mysqli_error($db));
 
     $response_array['data'] = array();

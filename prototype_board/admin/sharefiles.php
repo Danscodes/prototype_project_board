@@ -29,14 +29,14 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 			  <?php echo display_error(); ?>
 
 			  <div class="input-group">
-				  <label>File_id</label>
+				  <label style="display:none">File_id</label>
 				  <input type="text" id="file_id" name="file_id" value=""style="display:none">
 
-				  <label>File Path</label>
+				  <label style="display:none">File Path</label>
 				  <input type="text" id="file_path" name="file_path" value=""style="display:none">
 
-				  <label>File Name</label>
-				  <input type="text" id="file_name" name="file_name" value="">
+				  <label style="display:none">File Name</label>
+				  <input type="text" id="file_name" name="file_name" value="" style="display:none">
 				  <label>File Name</label>
 				  <input type="text" id="file_newname" name="file_newname" value="">
 
