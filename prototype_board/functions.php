@@ -42,7 +42,13 @@ function register(){
 	$name    =  e($_POST['name']);
 	$email       =  e($_POST['email']);
 	$user_type = e($_POST['user_type']);
-	$user_group  =  e($_POST['user_group']);
+	$user_group  = "";
+	if($user_type=='admin'){
+		$user_group  = 0;
+	}else{
+		$user_group  =  e($_POST['user_group']);
+	}
+
 	$password_1  =  e($_POST['password_1']);
 	$password_2  =  e($_POST['password_2']);
 
