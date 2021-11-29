@@ -27,14 +27,13 @@ $user_id = $_POST['user_id'];
             $list["folder_id"] = $data["folder_id"];
             $list["user_id"] = $data["user_id"];
             $list["date_uploaded"] = $data["date_uploaded"];
-            $list["filename"] = $data["filename"]." owned by ".$owned_by;
+            $list["filename"] = $data["filename"];
             $list["file_type"] = $data["file_type"];
             $list["remarks"] = $data["remarks"];
-            $list["file_type"] = $data["file_type"];
            if($folder_id=="0"){
             $list["file_path"] ="0";
            }else{
-  $list["file_path"] = $folder_name;
+                $list["file_path"] = '/'.$folder_name;
            }
             array_push($response["data"], $list);
         }
